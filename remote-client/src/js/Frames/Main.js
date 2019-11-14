@@ -5,6 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import Landing from './Landing';
 import Picking from './Picking';
+import Result from './Result';
 import { D_GRAY, DARK_SLATE } from '../utils/Colors';
 
 const Wrapper = styled.div`
@@ -35,6 +36,9 @@ const Main = ({ status }) => {
     case 'PICKING':
       content = <Picking />;
       break;
+    case 'SHOWING':
+      content = <Result />;
+      break;
     default:
       content = '';
   }
@@ -49,7 +53,7 @@ const Main = ({ status }) => {
 };
 
 const mapStateToProps = (state) => ({
-  status: state.gameState.status,
+  status: state.status,
 });
 
 export default connect(mapStateToProps)(Main);

@@ -4,7 +4,9 @@ import styled from 'styled-components';
 import { Route, Switch } from 'react-router-dom';
 
 import Landing from './Landing';
+import { getStatus } from '../store/selectors';
 import Picking from './Picking';
+import Winner from './Winner';
 import { D_GRAY, DARK_SLATE } from '../utils/Colors';
 
 const Wrapper = styled.div`
@@ -27,6 +29,7 @@ const Content = styled.div`
 
 const Main = ({ status }) => {
   let content;
+  
   switch (status) {
     case 'SLEEPING':
     case 'JOINING':
@@ -35,10 +38,13 @@ const Main = ({ status }) => {
     case 'PICKING':
       content = <Picking />;
       break;
+    case 'SHOWING':
+      content = <Winner />;
+      break;
     default:
       content = '';
   }
-
+  console.log(status)
   return (
     <Wrapper>
       <Content>
@@ -49,7 +55,7 @@ const Main = ({ status }) => {
 };
 
 const mapStateToProps = (state) => ({
-  status: state.gameState.status,
+  status: getStatus(state),
 });
 
 export default connect(mapStateToProps)(Main);

@@ -37,25 +37,26 @@ const QRWrapper = styled.div`
   margin: 1rem;
 `;
 
-const Landing = ({ status }) => {
-  let prompt = 'Default prompt';
-  if (status === 'SLEEPING') prompt = '^ Scan to Start ^';
-  else if (status === 'JOINING') prompt = 'Waiting for one more...';
+const Landing = ({ status, gameId, playerId, players }) => {
+  // You are not in the game
+  // You are in the game, waiting for another
+  const isInGame = !!players[playerId];
+  console.log(players)
+  const prompt = isInGame ? 'Waiting for another player' : 'Game currently full';
   return (
     <Wrapper>
-      <Row>Rock,</Row>
-      <Row>Paper,</Row>
-      <Row>Scissors</Row>
-      <QRWrapper>
-        <QRCode value={'example.com'} />
-      </QRWrapper>
-      <Row small>{prompt}</Row>
+      <Row>Welcome</Row>
+      <Row>Game:{gameId} | Player:{playerId}</Row>
+      <Row>{prompt}</Row>
     </Wrapper>
   );
 };
 
 const mapStateToProps = (state) => ({
-  status: state.gameState.status,
+  status: state.status,
+  gameId: state.gameId,
+  playerId: state.playerId,
+  players: state.players,
 });
 
 export default connect(mapStateToProps)(Landing);

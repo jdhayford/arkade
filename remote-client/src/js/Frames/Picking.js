@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import QRCode from 'qrcode.react';
+import Connection from '../connection';
 
 import { D_GRAY, DARK_SLATE, WHITE } from '../utils/Colors';
 
@@ -12,64 +13,65 @@ const Wrapper = styled.div`
   flex-direction: column;
   font-size: 2rem;
   margin-top: 5vh;
-  color: ${WHITE};
 
   @media only screen and (max-width: 600px) {
     width: 100%;
   }
 `;
 
-const Row = styled.div`
+const OptionsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Option = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-content: center;
+  align-items: center;
+  width: 30rem;
+  height: 10rem;
+  margin: 1rem 0;
+  user-select: none;
+  
+  color: ${(props) => props.color};
+  border: 2px solid ${(props) => props.color};
 
-  ${(props) => props.small && `
-    font-size: 1.5rem;
-  `}}
+  ${(props) => props.selected && `
+    background-color: ${props.color};
+    color: ${WHITE};
+  `}
 `;
 
-const SelectionWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 50%;
-  padding: 20rem 0;
-  background-color: ${(props) => props.color};
 
-  ${(props) => props.small && `
-    font-size: 1.5rem;
-  `}}
-`;
-
-const PlayerSelection = ({ player, move }) => {
-  const color = player == 'RED' ? 'red' : 'blue';
-  return move ? (
-    <SelectionWrapper color={color}>
-      READY
-    </SelectionWrapper>
-  ) : (
-    <SelectionWrapper>
-      WAITING
-    </SelectionWrapper>
-  );
-}
-
-const Picking = ({ gameState }) => {
+const Picking = ({ players, playerId }) => {
+  const currentPlayer = players[playerId];
+  console.log(players)
   return (
     <Wrapper>
-      <Row>CHOOSE WISELY</Row>
       <br />
-      <Row>
-        <PlayerSelection player='RED' move={gameState.moves.RED} />
-        <PlayerSelection player='BLUE' move={gameState.moves.BLUE} />
-      </Row>
+      <OptionsWrapper>
+        {['ROCK', 'PAPER', 'SCISSORS'].map(option => (
+          <Option
+            color={currentPlayer.color}
+            onClick={() => Connection.makeMove(option)}
+            selected={currentPlayer.move == option}
+            key={option}
+          >
+          {option}
+        </Option>
+        ))}
+      </OptionsWrapper>
     </Wrapper>
   );
 };
 
 const mapStateToProps = (state) => ({
-  gameState: state.gameState,
+  players: state.players,
+  playerId: state.playerId,
 });
 
 export default connect(mapStateToProps)(Picking);

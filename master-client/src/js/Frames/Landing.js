@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import QRCode from 'qrcode.react';
+import { getStatus } from '../store/selectors';
 
 import { D_GRAY, DARK_SLATE, WHITE } from '../utils/Colors';
 
@@ -37,7 +38,10 @@ const QRWrapper = styled.div`
   margin: 1rem;
 `;
 
-const Landing = ({ status }) => {
+// const BASE = 'localhost:5001';
+const BASE = 'arkade.ngrok.io';
+
+const Landing = ({ gameId, status }) => {
   let prompt = 'Default prompt';
   if (status === 'SLEEPING') prompt = '^ Scan to Start ^';
   else if (status === 'JOINING') prompt = 'Waiting for one more...';
@@ -47,7 +51,7 @@ const Landing = ({ status }) => {
       <Row>Paper,</Row>
       <Row>Scissors</Row>
       <QRWrapper>
-        <QRCode value={'example.com'} />
+        <QRCode value={`${BASE}/?id=${gameId}`} />
       </QRWrapper>
       <Row small>{prompt}</Row>
     </Wrapper>
@@ -55,7 +59,8 @@ const Landing = ({ status }) => {
 };
 
 const mapStateToProps = (state) => ({
-  status: state.gameState.status,
+  status: getStatus(state),
+  gameId: state.gameId,
 });
 
 export default connect(mapStateToProps)(Landing);

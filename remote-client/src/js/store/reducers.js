@@ -9,11 +9,8 @@ import { Status } from '../services/fetchSessionStatus';
 // }
 
 const defaultGameState = {
-  status: 'PICKING',
-  moves: {
-    RED: null,
-    BLUE: 'ROCK',
-  },
+  status: 'SLEEPING',
+  moves: {},
 }
 
 const url = new URL(location);
@@ -24,10 +21,20 @@ const GAME_ID = urlParameters.get('id');
 const playerId = () => PLAYER_ID;
 const gameId = () => GAME_ID;
 
-export const gameState = (state = defaultGameState, action) => {
+export const players = (state = {}, action) => {
   switch (action.type) {
-    case Actions.SET_GAME_STATE: {
-      return action.gameState;
+    case Actions.SET_PLAYERS: {
+      return action.players;
+    }
+    default:
+      return state;
+  }
+};
+
+export const status = (state = 'SLEEPING', action) => {
+  switch (action.type) {
+    case Actions.SET_STATUS: {
+      return action.status;
     }
     default:
       return state;
@@ -39,5 +46,6 @@ export default (history) =>
     router: connectRouter(history),
     gameId,
     playerId,
-    gameState,
+    status,
+    players,
   });

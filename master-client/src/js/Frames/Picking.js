@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import QRCode from 'qrcode.react';
+import * as Actions from '../store/actions';
 
 import { D_GRAY, DARK_SLATE, WHITE } from '../utils/Colors';
 
@@ -42,8 +43,7 @@ const SelectionWrapper = styled.div`
   `}}
 `;
 
-const PlayerSelection = ({ player, move }) => {
-  const color = player == 'RED' ? 'red' : 'blue';
+const PlayerSelection = ({ color, move }) => {
   return move ? (
     <SelectionWrapper color={color}>
       READY
@@ -55,21 +55,55 @@ const PlayerSelection = ({ player, move }) => {
   );
 }
 
-const Picking = ({ gameState }) => {
+const moveMap = {
+  ROCK: 'SCISSORS',
+  PAPER: 'ROCK',
+  SCISSORS: 'PAPER',
+}
+
+const getWinningMove = ([moveA, moveB]) => {
+  if (moveA === moveB) return null;
+  if (moveMap[moveA] === moveB) return moveA;
+  else return moveB;
+}
+
+const pickWinner = (players) => {
+  const moves = Object.values(players).map(player => player.move);
+  const winningMove = getWinningMove(moves)
+  if (!winningMove) throw new Error('TIE')
+
+  const winningPlayer = Object.values(players).find(player => player.move === winningMove);
+  return winningPlayer;
+}
+
+const Picking = ({ dispatch, players }) => {
+  const [playerA, playerB] = Object.values(players);
+  if (playerA.move && playerB.move) {
+    // FOR SUSPENSE
+    setTimeout(() => {
+      const winner = pickWinner(players);
+      dispatch(Actions.setWinner(winner.id));
+    }, 1500);
+  }
+
   return (
     <Wrapper>
       <Row>CHOOSE WISELY</Row>
       <br />
       <Row>
-        <PlayerSelection player='RED' move={gameState.moves.RED} />
-        <PlayerSelection player='BLUE' move={gameState.moves.BLUE} />
+        <PlayerSelection color={playerA.color} move={playerA.move} />
+        <PlayerSelection color={playerB.color} move={playerB.move} />
       </Row>
     </Wrapper>
   );
 };
 
 const mapStateToProps = (state) => ({
-  gameState: state.gameState,
+  players: state.players,
 });
 
-export default connect(mapStateToProps)(Picking);
+const mapDispatchToProps = (dispatch) => ({
+  dispatch,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Picking);
