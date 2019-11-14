@@ -6,8 +6,10 @@ import { ConnectedRouter } from 'connected-react-router';
 import { Main } from './Frames';
 import GlobalCssStyles from './utils/GlobalCssStyles';
 import { createReduxStore, history } from './store';
+import Connection from './connection';
 
 const store = createReduxStore();
+Connection.init(store);
 
 window.store = store;
 class App extends Component {

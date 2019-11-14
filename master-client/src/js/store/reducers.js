@@ -16,6 +16,14 @@ const defaultGameState = {
   },
 }
 
+const url = new URL(location);
+const urlParameters = new URLSearchParams(url.search);
+const PLAYER_ID = Math.round(Math.random()*1000);
+const GAME_ID = urlParameters.get('id');
+
+const playerId = () => PLAYER_ID;
+const gameId = () => GAME_ID;
+
 export const gameState = (state = defaultGameState, action) => {
   switch (action.type) {
     case Actions.SET_GAME_STATE: {
@@ -29,5 +37,7 @@ export const gameState = (state = defaultGameState, action) => {
 export default (history) =>
   combineReducers({
     router: connectRouter(history),
+    gameId,
+    playerId,
     gameState,
   });

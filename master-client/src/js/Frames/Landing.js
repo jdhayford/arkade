@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   justify-content: center;
   flex-direction: column;
   font-size: 2rem;
-  margin-top: 30vh;
+  margin-top: 5vh;
   color: ${WHITE};
 
   @media only screen and (max-width: 600px) {
