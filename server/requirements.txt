@@ -5,3 +5,4 @@ monotonic==1.5
 python-engineio==3.10.0
 python-socketio==4.3.1
 six==1.13.0
+gunicorn==20.0.0

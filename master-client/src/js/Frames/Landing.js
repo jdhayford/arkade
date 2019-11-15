@@ -39,7 +39,8 @@ const QRWrapper = styled.div`
 `;
 
 // const BASE = 'localhost:5001';
-const BASE = 'arkade.ngrok.io';
+// const BASE = 'arkade.ngrok.io';
+const BASE = 'http://ixn-arkade.s3-website-us-east-1.amazonaws.com';
 
 const Landing = ({ gameId, status }) => {
   let prompt = 'Default prompt';
