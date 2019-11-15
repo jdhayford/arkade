@@ -6,7 +6,7 @@ import { Status } from '../services/fetchSessionStatus';
 
 const url = new URL(location);
 const urlParameters = new URLSearchParams(url.search);
-const GAME_ID = urlParameters.get('id');
+const GAME_ID = urlParameters.get('id') || Math.random(Math.random()*10000);
 
 const gameId = () => GAME_ID;
 
