@@ -70,33 +70,58 @@ const getWinningMove = ([moveA, moveB]) => {
 const pickWinner = (players) => {
   const moves = Object.values(players).map(player => player.move);
   const winningMove = getWinningMove(moves)
-  if (!winningMove) throw new Error('TIE')
+  if (!winningMove) return null;
 
   const winningPlayer = Object.values(players).find(player => player.move === winningMove);
   return winningPlayer;
 }
 
-const Picking = ({ dispatch, players }) => {
-  const [playerA, playerB] = Object.values(players);
-  if (playerA.move && playerB.move) {
-    // FOR SUSPENSE
-    setTimeout(() => {
-      const winner = pickWinner(players);
-      dispatch(Actions.setWinner(winner.id));
-    }, 1500);
+class Picking extends React.Component {
+  constructor(props) {
+    super(props);
   }
 
-  return (
-    <Wrapper>
-      <Row>CHOOSE WISELY</Row>
-      <br />
-      <Row>
-        <PlayerSelection color={playerA.color} move={playerA.move} />
-        <PlayerSelection color={playerB.color} move={playerB.move} />
-      </Row>
-    </Wrapper>
-  );
-};
+  componentDidUpdate(prevProps, prevState) {
+    const { players, dispatch } = this.props;
+    const numMoves = (play) => Object.values(play).filter(player => player.move).length;
+
+    if (numMoves(prevProps.players) != numMoves(players)) {
+      const [playerA, playerB] = Object.values(players);
+      if (playerA.move && playerB.move) {
+        // FOR SUSPENSE
+        setTimeout(() => {
+          const winner = pickWinner(players);
+          if (winner === null) {
+            iziToast.info({
+              title: 'TIE',
+              titleSize: '2rem',
+              position: 'center',
+              timeout: 1000,
+            });
+            setTimeout(() => dispatch(Actions.resetMoves()), 1000);
+          } else {
+            dispatch(Actions.setWinner(winner.id));
+          }
+        }, 1500);
+      }
+    }
+  }
+  
+  render() {
+    const { dispatch, players } = this.props;
+    const [playerA, playerB] = Object.values(players);
+    return (
+      <Wrapper>
+        <Row>CHOOSE WISELY</Row>
+        <br />
+        <Row>
+          <PlayerSelection color={playerA.color} move={playerA.move} />
+          <PlayerSelection color={playerB.color} move={playerB.move} />
+        </Row>
+      </Wrapper>
+    );
+  }
+}
 
 const mapStateToProps = (state) => ({
   players: state.players,

@@ -37,6 +37,15 @@ export const players = (state = {}, action) => {
         },
       };
     }
+    case Actions.RESET_MOVES: {
+      return Object.entries(state).reduce((prev, [id, player]) => ({
+        ...prev,
+        [id]: {
+          ...player,
+          move: null,
+        }
+      }), {});
+    }
     case Actions.SET_WINNER: {
       const player = state[action.playerId];
       return {
