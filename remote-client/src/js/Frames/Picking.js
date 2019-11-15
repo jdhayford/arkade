@@ -32,7 +32,7 @@ const Option = styled.div`
   justify-content: center;
   align-content: center;
   align-items: center;
-  width: 30rem;
+  width: 20rem;
   height: 10rem;
   margin: 1rem 0;
   user-select: none;
