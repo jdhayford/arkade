@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  font-size: 2rem;
+  font-size: 4rem;
   margin-top: 5vh;
   color: ${WHITE};
 
@@ -35,6 +35,7 @@ const SelectionWrapper = styled.div`
   flex-direction: row;
   justify-content: center;
   width: 50%;
+  height: 50%;
   padding: 20rem 0;
   background-color: ${(props) => props.color};
 

@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  font-size: 2rem;
+  font-size: 4rem;
   margin-top: 5vh;
   color: ${WHITE};
 
@@ -26,7 +26,7 @@ const Row = styled.div`
   justify-content: center;
 
   ${(props) => props.small && `
-    font-size: 1.5rem;
+    font-size: 2.5rem;
   `}}
 `;
 
@@ -34,8 +34,8 @@ const QRWrapper = styled.div`
   align-self: center;
   background-color: ${WHITE};
   border-radius: 0.25rem;
-  padding: 0.7rem 0.7rem 0.3rem;
-  margin: 1rem;
+  padding: 1rem;
+  margin: 20vh;
 `;
 
 // const BASE = 'localhost:5001';
@@ -52,7 +52,7 @@ const Landing = ({ gameId, status }) => {
       <Row>Paper,</Row>
       <Row>Scissors</Row>
       <QRWrapper>
-        <QRCode value={`${BASE}/?id=${gameId}`} />
+        <QRCode size={500} value={`${BASE}/?id=${gameId}`} />
       </QRWrapper>
       <Row small>{prompt}</Row>
     </Wrapper>
