@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  font-size: 4rem;
+  font-size: 6rem;
   margin-top: 5vh;
   color: ${WHITE};
 
@@ -26,7 +26,7 @@ const Row = styled.div`
   justify-content: center;
 
   ${(props) => props.small && `
-    font-size: 2.5rem;
+    font-size: 4.5rem;
   `}}
 `;
 
