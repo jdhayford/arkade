@@ -15,3 +15,11 @@ This client (React) that one arrives at upon "joining" the game, see above. This
 
 ### Server
 The websocket server responsible for syncronizing game state between the clients.
+
+## Running Locally
+
+Everything is setup with docker so all you need to do is:
+
+```
+docker-compose up
+```

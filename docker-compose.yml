@@ -1,0 +1,30 @@
+version: '2'
+services:
+  api:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    image: api:latest
+    ports:
+      - "3000:3000"
+    depends_on: 
+      - master-client
+      - remote-client
+
+  remote-client:
+    build:
+      context: ./remote-client
+      dockerfile: Dockerfile
+    image: remote-client:latest
+    ports:
+      - "5001:5001"
+
+  master-client:
+    build:
+      context: ./master-client
+      dockerfile: Dockerfile
+    environment: 
+      REMOTE_HOST: 'remote-client'
+    image: master-client:latest
+    ports:
+      - "5000:5000"

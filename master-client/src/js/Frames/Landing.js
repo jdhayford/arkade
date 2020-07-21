@@ -38,7 +38,9 @@ const QRWrapper = styled.div`
   margin: 20vh;
 `;
 
-const BASE = 'localhost:5001';
+console.log(process.env.REMOTE_HOST)
+const BASE_HOST = process.env.REMOTE_HOST || 'localhost'
+const BASE = `${BASE_HOST}:5001`;
 // const BASE = 'arkade.ngrok.io';
 // const BASE = 'http://ixn-arkade.s3-website-us-east-1.amazonaws.com';
 

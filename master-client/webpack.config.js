@@ -13,8 +13,8 @@ module.exports = {
     publicPath: '/',
   },
   devServer: {
+    host: '0.0.0.0',
     port: 5000,
-    disableHostCheck: true,
     historyApiFallback: true,
   },
   mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
@@ -67,7 +67,7 @@ module.exports = {
             'width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no, user-scalable=no',
         },
       ],
-      title: 'Arkadia: the Kiosk Arcade',
+      title: 'Arkade - Host',
       mobile: true,
       links: [
         'https://fonts.googleapis.com/css?family=Roboto',
@@ -81,12 +81,7 @@ module.exports = {
           href: 'https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css',
           rel: 'stylesheet',
           type: 'text/css',
-        },
-        {
-          href: 'https://video-react.github.io/assets/video-react.css',
-          rel: 'stylesheet',
-          type: 'text/css',
-        },
+        }
       ],
       scripts: [
         'https://apis.google.com/js/api.js',
