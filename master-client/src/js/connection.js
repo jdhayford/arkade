@@ -2,9 +2,9 @@ import io from 'socket.io-client';
 import * as Actions from './store/actions';
 import { getStatus } from './store/selectors';
 
-// const API_BASE = 'localhost:3000';
+const API_BASE = 'localhost:3000';
 // const API_BASE = 'http://api.arkade.ngrok.io';
-const API_BASE = '35.243.255.242';
+// const API_BASE = '35.243.255.242';
 
 class Connection {
   init(store) {
