@@ -3,6 +3,7 @@ PoC Rock, Paper, Scissors game that allows phones to join and function as contro
 
 ### [Demo](https://s3.amazonaws.com/www.jdhayford.io/videos/quick-demo.mp4)
 
+![Pic](https://s3.amazonaws.com/www.jdhayford.io/images/arkade-shot.png)
 
 ## Components
 - master-client
