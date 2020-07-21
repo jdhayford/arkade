@@ -26,3 +26,5 @@ Everything is setup with docker so all you need to do is:
 ```
 docker-compose up
 ```
+
+After that you can pull up `localhost:5000` for the host screen. To add a player, you click the QR code (when configured and deployed this can just be scanned by your phone).
