@@ -1,6 +1,8 @@
 # arkade
 PoC Rock, Paper, Scissors game that allows phones to join and function as controllers (via websockets)
 
+### [Demo](https://s3.amazonaws.com/www.jdhayford.io/videos/quick-demo.mp4)
+
 
 ## Components
 - master-client
