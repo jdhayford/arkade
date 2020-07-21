@@ -2,7 +2,6 @@ import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
 
 import * as Actions from './actions';
-import { Status } from '../services/fetchSessionStatus';
 
 // const defaultGameState = {
 //   status: 'SLEEPING',

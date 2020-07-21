@@ -38,11 +38,13 @@ const QRWrapper = styled.div`
   margin: 20vh;
 `;
 
-// const BASE = 'localhost:5001';
+const BASE = 'localhost:5001';
 // const BASE = 'arkade.ngrok.io';
-const BASE = 'http://ixn-arkade.s3-website-us-east-1.amazonaws.com';
+// const BASE = 'http://ixn-arkade.s3-website-us-east-1.amazonaws.com';
 
 const Landing = ({ gameId, status }) => {
+  const gameUrl = `${BASE}/?id=${gameId}`
+  console.log(gameUrl)
   let prompt = 'Default prompt';
   if (status === 'SLEEPING') prompt = '^ Scan to Start ^';
   else if (status === 'JOINING') prompt = 'Waiting for one more...';
@@ -52,7 +54,9 @@ const Landing = ({ gameId, status }) => {
       <Row>Paper,</Row>
       <Row>Scissors</Row>
       <QRWrapper>
-        <QRCode size={500} value={`${BASE}/?id=${gameId}`} />
+        <a href={gameUrl}>
+          <QRCode size={500} value={gameUrl} />
+        </a>
       </QRWrapper>
       <Row small>{prompt}</Row>
     </Wrapper>
